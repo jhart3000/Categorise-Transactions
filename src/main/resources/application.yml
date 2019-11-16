@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /fractal
+  port: 8081
+
+
+

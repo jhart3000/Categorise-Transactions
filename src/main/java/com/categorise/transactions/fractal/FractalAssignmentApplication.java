@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FractalAssignmentApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FractalAssignmentApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FractalAssignmentApplication.class, args);
+    }
 
 }
