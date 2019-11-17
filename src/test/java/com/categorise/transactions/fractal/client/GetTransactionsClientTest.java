@@ -52,7 +52,7 @@ public class GetTransactionsClientTest {
 
     List<Transaction> response =
         client.getTransactions(
-            buildClientRequest(2, "fakeAcc62", "Bearer 1234", "5678", "9101112"));
+            buildClientRequest());
 
     assertThat(response).isNotNull();
     assertThat(response.get(0).getDescription()).isEqualTo("Starbucks Victoria Stn");
@@ -68,20 +68,19 @@ public class GetTransactionsClientTest {
         catchThrowable(
             () ->
                 client.getTransactions(
-                    buildClientRequest(2, "fakeAcc62", "Bearer 1234", "5678", "9101112")));
+                    buildClientRequest()));
 
     assertThat(errorResponse).isNotNull();
     assertThat(errorResponse.getMessage()).isEqualTo("401 Unauthorized");
   }
 
-  private CategoriseTransactionsRequest buildClientRequest(
-      int bankId, String accountId, String authToken, String apiKey, String partnerId) {
+  private CategoriseTransactionsRequest buildClientRequest() {
     return CategoriseTransactionsRequest.builder()
-        .accountId(accountId)
-        .apiKey(apiKey)
-        .authorizationToken(authToken)
-        .bankId(bankId)
-        .partnerId(partnerId)
+        .accountId("fakeAcc62")
+        .apiKey("5678")
+        .authorizationToken("Bearer 1234")
+        .bankId(2)
+        .partnerId("9101112")
         .build();
   }
 }
