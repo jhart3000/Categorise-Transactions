@@ -5,11 +5,9 @@ import com.categorise.transactions.fractal.exception.ClientException;
 import com.categorise.transactions.fractal.model.CategoriseTransactionsRequest;
 import com.categorise.transactions.fractal.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class CategoriseTransactionsService {
 
   @Autowired private GetTransactionsClient client;
@@ -18,7 +16,21 @@ public class CategoriseTransactionsService {
 
   public List<Transaction> categoriseTransactions(CategoriseTransactionsRequest request)
       throws ClientException {
+
     transactionList = client.getTransactions(request);
+    transactionList.stream()
+        .forEach(
+            transaction -> {
+              if (transaction.getDescription().toLowerCase().contains("coffee")
+                  || transaction.getDescription().toLowerCase().contains("starbuck")
+                  || transaction.getDescription().toLowerCase().contains("costa")) {
+                transaction.setCategory("Coffee Purchase");
+              } else if (transaction.getDescription().toLowerCase().contains("amazon")) {
+                transaction.setCategory("Amazon Purchase");
+              } else {
+                transaction.setCategory("Not Categorised");
+              }
+            });
     return transactionList;
   }
 }

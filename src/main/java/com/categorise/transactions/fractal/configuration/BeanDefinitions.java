@@ -1,12 +1,13 @@
-package com.categorise.transactions.fractal.beans;
+package com.categorise.transactions.fractal.configuration;
 
 import com.categorise.transactions.fractal.client.GetTransactionsClient;
+import com.categorise.transactions.fractal.service.CategoriseTransactionsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-public class TestBeans {
+public class BeanDefinitions {
 
   @Bean
   GetTransactionsClient getTransactionsClient() {
@@ -14,7 +15,12 @@ public class TestBeans {
   }
 
   @Bean
-  public RestTemplate restTemplate() {
+  RestTemplate restTemplate() {
     return new RestTemplate();
+  }
+
+  @Bean
+  CategoriseTransactionsService categoriseTransactionsService() {
+    return new CategoriseTransactionsService();
   }
 }

@@ -1,0 +1,57 @@
+[
+  {
+    "bankId": 2,
+    "accountId": "fakeAcc62",
+    "companyId": 2,
+    "transactionId": "0ef942ea-d3ad-4f25-857b-4d4bb7f912d8",
+    "bookingDate": "2018-07-24",
+    "description": "Starbucks Victoria Stn",
+    "amount": "1000.0",
+    "currencyCode": "GBP",
+    "type": "DEBIT"
+  },
+  {
+    "bankId": 2,
+    "accountId": "fakeAcc62",
+    "companyId": 4,
+    "transactionId": "25a4d256-094f-4637-bea0-5f82760674b0",
+    "bookingDate": "2017-04-28",
+    "description": "INT'L 0020481195 AMAZON UK RETAIL A AMAZON.CO.UK",
+    "amount": "23.12",
+    "currencyCode": "GBP",
+    "type": "DEBIT"
+  },
+  {
+    "bankId": 2,
+    "accountId": "fakeAcc62",
+    "companyId": 2,
+    "transactionId": "4661c026-4605-4773-9b49-b781ed9909ca",
+    "bookingDate": "2018-07-24",
+    "description": "SAINSBURY'S",
+    "amount": "2000.0",
+    "currencyCode": "GBP",
+    "type": "DEBIT"
+  },
+  {
+    "bankId": 2,
+    "accountId": "fakeAcc62",
+    "companyId": 6,
+    "transactionId": "75660071-9994-4457-93d8-002f6a080e17",
+    "bookingDate": "2017-10-02",
+    "description": "COSTA COFFEE",
+    "amount": "6.2",
+    "currencyCode": "GBP",
+    "type": "DEBIT"
+  },
+  {
+    "bankId": 2,
+    "accountId": "fakeAcc62",
+    "companyId": 6,
+    "transactionId": "8106907d-3e5f-4b90-be18-3e62df18a83c",
+    "bookingDate": "2018-07-24",
+    "description": "Coffee Shop",
+    "amount": "10000.0",
+    "currencyCode": "GBP",
+    "type": "DEBIT"
+  }
+]

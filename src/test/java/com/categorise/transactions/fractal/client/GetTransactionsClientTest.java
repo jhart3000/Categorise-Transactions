@@ -1,7 +1,6 @@
 package com.categorise.transactions.fractal.client;
 
-import com.categorise.transactions.fractal.beans.TestBeans;
-import com.categorise.transactions.fractal.model.CategoriseTransactionsRequest;
+import com.categorise.transactions.fractal.configuration.BeanDefinitions;
 import com.categorise.transactions.fractal.model.ClientResponse;
 import com.categorise.transactions.fractal.model.Transaction;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,21 +18,21 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static com.categorise.transactions.fractal.helper.Constants.CLIENT_REQUEST;
 import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileToObject;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SpringBootTest(classes = TestBeans.class)
-public class GetTransactionsClientTest {
+@SpringBootTest(classes = BeanDefinitions.class)
+class GetTransactionsClientTest {
 
-  private final String CLIENT_RESPONSE_PATH = "get-transactions-client-response.json";
   private final String CLIENT_URL =
       "https://sandbox.askfractal.com/banking/2/accounts/fakeAcc62/transactions";
   private HttpEntity<?> entity;
 
-  @MockBean RestTemplate restTemplate;
+  @MockBean private RestTemplate restTemplate;
 
-  @Autowired GetTransactionsClient client;
+  @Autowired private GetTransactionsClient client;
 
   @BeforeEach
   void setup() {
@@ -46,13 +45,12 @@ public class GetTransactionsClientTest {
 
   @Test
   void shouldReturnSuccessfulClientResponse() throws Exception {
-    ClientResponse clientResponse = mapJsonFileToObject(CLIENT_RESPONSE_PATH, ClientResponse.class);
+    ClientResponse clientResponse =
+        mapJsonFileToObject("get-transactions-client-response.json", ClientResponse.class);
     Mockito.when(restTemplate.exchange(CLIENT_URL, HttpMethod.GET, entity, ClientResponse.class))
         .thenReturn(new ResponseEntity<>(clientResponse, HttpStatus.OK));
 
-    List<Transaction> response =
-        client.getTransactions(
-            buildClientRequest());
+    List<Transaction> response = client.getTransactions(CLIENT_REQUEST);
 
     assertThat(response).isNotNull();
     assertThat(response.get(0).getDescription()).isEqualTo("Starbucks Victoria Stn");
@@ -64,23 +62,9 @@ public class GetTransactionsClientTest {
     Mockito.when(restTemplate.exchange(CLIENT_URL, HttpMethod.GET, entity, ClientResponse.class))
         .thenThrow(new RuntimeException("401 Unauthorized"));
 
-    Throwable errorResponse =
-        catchThrowable(
-            () ->
-                client.getTransactions(
-                    buildClientRequest()));
+    Throwable errorResponse = catchThrowable(() -> client.getTransactions(CLIENT_REQUEST));
 
     assertThat(errorResponse).isNotNull();
     assertThat(errorResponse.getMessage()).isEqualTo("401 Unauthorized");
-  }
-
-  private CategoriseTransactionsRequest buildClientRequest() {
-    return CategoriseTransactionsRequest.builder()
-        .accountId("fakeAcc62")
-        .apiKey("5678")
-        .authorizationToken("Bearer 1234")
-        .bankId(2)
-        .partnerId("9101112")
-        .build();
   }
 }
