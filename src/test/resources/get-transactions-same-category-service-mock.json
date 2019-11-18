@@ -1,0 +1,26 @@
+[
+  {
+    "bankId": 2,
+    "accountId": "fakeAcc62",
+    "companyId": 4,
+    "transactionId": "25a4d256-094f-4637-bea0-5f82760674b0",
+    "bookingDate": "2017-04-28",
+    "description": "INT'L 0020481195 AMAZON UK RETAIL A AMAZON.CO.UK",
+    "amount": "23.12",
+    "currencyCode": "GBP",
+    "type": "DEBIT",
+    "category": "Amazon Purchase"
+  },
+  {
+    "bankId": 2,
+    "accountId": "fakeAcc62",
+    "companyId": 2,
+    "transactionId": "4a503bc0-c7f5-4a5f-9ae7-7269ce9d951e",
+    "bookingDate": "2017-11-07",
+    "description": "INT'L 0020481195 AMAZON UK RETAIL A AMAZON.CO.UK",
+    "amount": "46.99",
+    "currencyCode": "GBP",
+    "type": "DEBIT",
+    "category": "Amazon Purchase"
+  }
+]

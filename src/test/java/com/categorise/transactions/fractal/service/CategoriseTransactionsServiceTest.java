@@ -33,4 +33,14 @@ class CategoriseTransactionsServiceTest {
     assertThat(response.size()).isEqualTo(5);
     assertThat(response.get(0).getCategory()).isEqualTo("Coffee Purchase");
   }
+
+  @Test
+  void shouldReturnTransactionWithTheSameCategory() throws Exception {
+    Transaction[] serviceMock =
+        mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
+    service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
+    List<Transaction> response = service.getTransactionsWithSameCategory("Coffee Purchase");
+    assertThat(response).isNotNull();
+    assertThat(response.size()).isEqualTo(3);
+  }
 }

@@ -38,4 +38,16 @@ class CategoriseTransactionsControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].category", Matchers.is("Coffee Purchase")));
   }
+
+  @Test
+  void shouldReturnListOfTransactionsWithSameCategory() throws Exception {
+    Transaction[] serviceMock =
+        mapJsonFileToObject(
+            "get-transactions-same-category-service-mock.json", Transaction[].class);
+    given(service.getTransactionsWithSameCategory("Amazon Purchase"))
+        .willReturn(Arrays.asList(serviceMock));
+    mvc.perform(get("/getTransactionsWithSameCategory").header("Category", "Amazon Purchase"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].category", Matchers.is("Amazon Purchase")));
+  }
 }

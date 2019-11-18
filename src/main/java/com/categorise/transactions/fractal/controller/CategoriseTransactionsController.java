@@ -1,6 +1,6 @@
 package com.categorise.transactions.fractal.controller;
 
-import com.categorise.transactions.fractal.exception.ClientException;
+import com.categorise.transactions.fractal.exception.ApplicationException;
 import com.categorise.transactions.fractal.model.CategoriseTransactionsRequest;
 import com.categorise.transactions.fractal.model.Transaction;
 import com.categorise.transactions.fractal.service.CategoriseTransactionsService;
@@ -55,7 +55,7 @@ public class CategoriseTransactionsController {
               required = true)
           @RequestHeader("X-Partner-Id")
           String partnerId)
-      throws ClientException {
+      throws ApplicationException {
 
     CategoriseTransactionsRequest request =
         CategoriseTransactionsRequest.builder()
@@ -69,7 +69,7 @@ public class CategoriseTransactionsController {
     return service.categoriseTransactions(request);
   }
 
-  @GetMapping("/category/{category}/getTransactionsWithSameCategory")
+  @GetMapping("/getTransactionsWithSameCategory")
   @ApiOperation(
       value = "Get the transactions of a specific category",
       notes =
@@ -80,9 +80,10 @@ public class CategoriseTransactionsController {
               value =
                   "The category of a transaction. Only transactions of this category will be returned e.g. Coffee Purchase",
               required = true)
-          @PathVariable("category")
-          int category) {
-    return null;
+          @RequestHeader("Category")
+          String category)
+      throws ApplicationException {
+    return service.getTransactionsWithSameCategory(category);
   }
 
   @PutMapping("/transaction/{transactionId}/category/{category}/updateTransactionCategory")

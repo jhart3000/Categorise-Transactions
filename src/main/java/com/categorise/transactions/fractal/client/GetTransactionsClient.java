@@ -1,6 +1,6 @@
 package com.categorise.transactions.fractal.client;
 
-import com.categorise.transactions.fractal.exception.ClientException;
+import com.categorise.transactions.fractal.exception.ApplicationException;
 import com.categorise.transactions.fractal.model.CategoriseTransactionsRequest;
 import com.categorise.transactions.fractal.model.ClientResponse;
 import com.categorise.transactions.fractal.model.Transaction;
@@ -21,7 +21,7 @@ public class GetTransactionsClient {
   @Autowired private RestTemplate restTemplate;
 
   public List<Transaction> getTransactions(CategoriseTransactionsRequest request)
-      throws ClientException {
+      throws ApplicationException {
 
     String url =
         "https://sandbox.askfractal.com/banking/{bankId}/accounts/{accountId}/transactions";
@@ -44,7 +44,7 @@ public class GetTransactionsClient {
               ClientResponse.class);
       return response.getBody().getResults();
     } catch (Exception e) {
-      throw new ClientException(e.getMessage());
+      throw new ApplicationException(e.getMessage());
     }
   }
 }
