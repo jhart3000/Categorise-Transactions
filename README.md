@@ -18,5 +18,10 @@ The Categorise Transactions Controller api will retrieve data from the bank usin
 This means it will take in 3 headers (X-Api-Key, Authorization, X-Partner-Id) and 2 path params (bankId and accountId).
 This api wil automatically categorise transactions under 2 categories (Coffee Purchases and Amazon Purchases).
 
-After this all subsequent apis can be used to manipulate the categories of all transactions.
+After this all subsequent apis can be used to manipulate the categories of all transactions. This includes:
+
+Updating category of a transaction
+Adding a new category
+Getting the most up to date transaction list
+Getting a list of transactions for a specific category
 
