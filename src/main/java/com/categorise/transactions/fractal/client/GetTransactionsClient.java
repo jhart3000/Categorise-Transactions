@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class GetTransactionsClient {
 
@@ -42,9 +43,15 @@ public class GetTransactionsClient {
               HttpMethod.GET,
               entity,
               ClientResponse.class);
-      return response.getBody().getResults();
+      return Objects.requireNonNull(response.getBody()).getResults();
     } catch (Exception e) {
-      throw new ApplicationException(e.getMessage());
+      String message;
+      if (e.getMessage() == null) {
+        message = "Error Encountered When Trying To Retrieve Bank Transactions";
+      } else {
+        message = e.getMessage();
+      }
+      throw new ApplicationException(message);
     }
   }
 }

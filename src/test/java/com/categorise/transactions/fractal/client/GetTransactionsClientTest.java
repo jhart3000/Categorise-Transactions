@@ -67,4 +67,13 @@ class GetTransactionsClientTest {
     assertThat(errorResponse).isNotNull();
     assertThat(errorResponse.getMessage()).isEqualTo("401 Unauthorized");
   }
+
+  @Test
+  void shouldReturnNullFromClient() {
+    Throwable errorResponse = catchThrowable(() -> client.getTransactions(CLIENT_REQUEST));
+
+    assertThat(errorResponse).isNotNull();
+    assertThat(errorResponse.getMessage())
+        .isEqualTo("Error Encountered When Trying To Retrieve Bank Transactions");
+  }
 }

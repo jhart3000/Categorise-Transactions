@@ -15,14 +15,15 @@ public class CategoriseTransactionsService {
 
   @Autowired private GetTransactionsClient client;
 
+  private List<Transaction> transactionList;
+
   public CategoriseTransactionsService(List<Transaction> transactionList) {
     this.transactionList = transactionList;
   }
 
-  private List<Transaction> transactionList;
-
   public List<Transaction> categoriseTransactions(CategoriseTransactionsRequest request)
       throws ApplicationException {
+
     transactionList = client.getTransactions(request);
     transactionList.forEach(
         transaction -> {
@@ -36,6 +37,7 @@ public class CategoriseTransactionsService {
             transaction.setCategory("Not Categorised");
           }
         });
+
     return transactionList;
   }
 
@@ -43,6 +45,7 @@ public class CategoriseTransactionsService {
       throws ApplicationException {
     transactionListNullCheck();
     List<Transaction> sameCategoryList = new ArrayList<>();
+
     transactionList.forEach(
         transaction -> {
           if (transaction.getCategory().equalsIgnoreCase(category)) {
