@@ -28,7 +28,7 @@ public class CategoriseTransactionsService {
     transactionList.forEach(
         transaction -> {
           if (transaction.getDescription().toLowerCase().contains("coffee")
-              || transaction.getDescription().toLowerCase().contains("starbuck")
+              || transaction.getDescription().toLowerCase().contains("starbucks")
               || transaction.getDescription().toLowerCase().contains("costa")) {
             transaction.setCategory("Coffee Purchase");
           } else if (transaction.getDescription().toLowerCase().contains("amazon")) {

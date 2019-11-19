@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.categorise.transactions.fractal.helper.Constants.UPDATED_CATEGORY;
+import static com.categorise.transactions.fractal.helper.Constants.*;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -31,25 +31,17 @@ class UpdateCategoryControllerTest {
         .when(service)
         .updateTransaction("0ef942ea-d3ad-4f25-857b-4d4bb7f912d8", UPDATED_CATEGORY);
 
-    String body =
-        "{    \n"
-            + "\t\"transactionId\": \"0ef942ea-d3ad-4f25-857b-4d4bb7f912d8\",    \n"
-            + "    \"category\": \"Updated Category\"\n"
-            + "} ";
-
-    mvc.perform(put("/updateTransactionCategory").contentType(APPLICATION_JSON).content(body))
+    mvc.perform(
+            put("/updateTransactionCategory")
+                .contentType(APPLICATION_JSON)
+                .content(UPDATE_CATEGORY_REQUEST))
         .andExpect(status().isOk());
   }
 
   @Test
   void shouldThrowInvalidRequestBody() throws Exception {
-    String body =
-        "{    \n"
-            + "\t\"invalid\": \"0ef942ea-d3ad-4f25-857b-4d4bb7f912d8\",    \n"
-            + "    \"invalid2\": \"Updated Category\"\n"
-            + "} ";
 
-    mvc.perform(put("/updateTransactionCategory").contentType(APPLICATION_JSON).content(body))
+    mvc.perform(put("/updateTransactionCategory").contentType(APPLICATION_JSON).content(INVALID_BODY))
         .andExpect(status().isBadRequest())
         .andExpect(
             jsonPath(
