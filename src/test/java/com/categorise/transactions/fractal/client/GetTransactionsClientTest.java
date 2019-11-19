@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 import static com.categorise.transactions.fractal.helper.Constants.CLIENT_REQUEST;
+import static com.categorise.transactions.fractal.helper.Constants.CLIENT_URL;
 import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileToObject;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -26,8 +27,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest(classes = BeanDefinitions.class)
 class GetTransactionsClientTest {
 
-  private final String CLIENT_URL =
-      "https://sandbox.askfractal.com/banking/2/accounts/fakeAcc62/transactions";
   private HttpEntity<?> entity;
 
   @MockBean private RestTemplate restTemplate;

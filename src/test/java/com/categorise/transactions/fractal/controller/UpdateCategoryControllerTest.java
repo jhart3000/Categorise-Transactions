@@ -41,7 +41,8 @@ class UpdateCategoryControllerTest {
   @Test
   void shouldThrowInvalidRequestBody() throws Exception {
 
-    mvc.perform(put("/updateTransactionCategory").contentType(APPLICATION_JSON).content(INVALID_BODY))
+    mvc.perform(
+            put("/updateTransactionCategory").contentType(APPLICATION_JSON).content(INVALID_BODY))
         .andExpect(status().isBadRequest())
         .andExpect(
             jsonPath(

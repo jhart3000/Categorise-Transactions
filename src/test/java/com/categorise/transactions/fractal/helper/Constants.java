@@ -17,6 +17,8 @@ public class Constants {
   public static final String COFFEE_PURCHASE = "Coffee Purchase";
   public static final String UPDATED_CATEGORY = "Updated Category";
   public static final String AMAZON_PURCHASE = "Amazon Purchase";
+  public static final String CLIENT_URL =
+      "https://sandbox.askfractal.com/banking/2/accounts/fakeAcc62/transactions";
   public static final String UPDATE_CATEGORY_REQUEST =
       "{    \n"
           + "\t\"transactionId\": \"0ef942ea-d3ad-4f25-857b-4d4bb7f912d8\",    \n"
@@ -27,7 +29,8 @@ public class Constants {
           + "\t\"descriptionSearch\": [\"BT\", \"Mobile\"],    \n"
           + "    \"newCategory\": \"Added Category\"\n"
           + "} ";
-  public static final String INVALID_BODY = "{    \n"
+  public static final String INVALID_BODY =
+      "{    \n"
           + "\t\"invalid\": \"0ef942ea-d3ad-4f25-857b-4d4bb7f912d8\",    \n"
           + "    \"invalid2\": \"Updated Category\"\n"
           + "} ";

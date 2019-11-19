@@ -30,8 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(BeanDefinitions.class)
 class IntegrationTest {
 
-  private final String CLIENT_URL =
-      "https://sandbox.askfractal.com/banking/2/accounts/fakeAcc62/transactions";
   private HttpEntity<?> entity;
 
   @Autowired private MockMvc mvc;
