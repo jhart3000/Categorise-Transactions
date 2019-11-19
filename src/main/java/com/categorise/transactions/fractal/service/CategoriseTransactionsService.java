@@ -2,11 +2,13 @@ package com.categorise.transactions.fractal.service;
 
 import com.categorise.transactions.fractal.client.GetTransactionsClient;
 import com.categorise.transactions.fractal.exception.ApplicationException;
+import com.categorise.transactions.fractal.model.AddCategoryRequest;
 import com.categorise.transactions.fractal.model.CategoriseTransactionsRequest;
 import com.categorise.transactions.fractal.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CategoriseTransactionsService {
@@ -66,6 +68,19 @@ public class CategoriseTransactionsService {
         transaction -> {
           if (transaction.getTransactionId().equals(transactionId)) {
             transaction.setCategory(category);
+          }
+        });
+  }
+
+  public void addCategory(AddCategoryRequest request) throws ApplicationException {
+    transactionListNullCheck();
+
+    transactionList.forEach(
+        transaction -> {
+          if (Arrays.stream(request.getDescriptionSearch())
+              .parallel()
+              .anyMatch(transaction.getDescription()::contains)) {
+            transaction.setCategory(request.getNewCategory());
           }
         });
   }

@@ -19,7 +19,8 @@ public class UpdateCategoryController {
   @ApiOperation(
       value = "Update the category of a specific transaction",
       notes =
-          "This api will select the transaction based on the id passed in the request body and replace its category field with the category string passed in the body")
+          "This api will select the transaction based on the id passed in the request body and replace its category field with the category string passed in the body",
+      response = String.class)
   public String updateTransaction(
       @ApiParam(
               value =
@@ -28,7 +29,15 @@ public class UpdateCategoryController {
           @RequestBody
           UpdateCategoryRequest requestBody)
       throws ApplicationException {
-    service.updateTransaction(requestBody.getTransactionId(), requestBody.getCategory());
+
+    String transactionId = requestBody.getTransactionId();
+    String category = requestBody.getCategory();
+
+    if (transactionId == null || category == null) {
+      throw new ApplicationException(
+          "Invalid Request Body: Please pass transactionId and category in request body");
+    }
+    service.updateTransaction(transactionId, category);
     return "Transaction Category Updated";
   }
 }

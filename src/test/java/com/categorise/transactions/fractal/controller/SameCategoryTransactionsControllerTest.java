@@ -27,7 +27,7 @@ class SameCategoryTransactionsControllerTest {
 
   @MockBean private CategoriseTransactionsService service;
 
-    @Test
+  @Test
   void shouldReturnListOfTransactionsWithSameCategory() throws Exception {
     Transaction[] serviceMock =
         mapJsonFileToObject(
