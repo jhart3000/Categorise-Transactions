@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 
+import static com.categorise.transactions.fractal.helper.Constants.AMAZON_PURCHASE;
 import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileToObject;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,10 +33,10 @@ class SameCategoryTransactionsControllerTest {
     Transaction[] serviceMock =
         mapJsonFileToObject(
             "get-transactions-same-category-service-mock.json", Transaction[].class);
-    given(service.getTransactionsWithSameCategory("Amazon Purchase"))
+    given(service.getTransactionsWithSameCategory(AMAZON_PURCHASE))
         .willReturn(Arrays.asList(serviceMock));
-    mvc.perform(get("/getTransactionsWithSameCategory").header("Category", "Amazon Purchase"))
+    mvc.perform(get("/getTransactionsWithSameCategory").header("Category", AMAZON_PURCHASE))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].category", Matchers.is("Amazon Purchase")));
+        .andExpect(jsonPath("$[0].category", Matchers.is(AMAZON_PURCHASE)));
   }
 }

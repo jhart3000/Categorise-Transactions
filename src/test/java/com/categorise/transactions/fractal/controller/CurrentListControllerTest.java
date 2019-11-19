@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 
+import static com.categorise.transactions.fractal.helper.Constants.AMAZON_PURCHASE;
 import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileToObject;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,6 +36,6 @@ class CurrentListControllerTest {
     given(service.returnCurrentTransactionList()).willReturn(Arrays.asList(serviceMock));
     mvc.perform(get("/getAllTransactions"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].category", Matchers.is("Amazon Purchase")));
+        .andExpect(jsonPath("$[0].category", Matchers.is(AMAZON_PURCHASE)));
   }
 }

@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 
 import static com.categorise.transactions.fractal.helper.Constants.CLIENT_REQUEST;
+import static com.categorise.transactions.fractal.helper.Constants.COFFEE_PURCHASE;
 import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileToObject;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,6 +40,6 @@ class CategoriseTransactionsControllerTest {
                 .header("X-Api-Key", "5678")
                 .header("X-Partner-Id", "9101112"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].category", Matchers.is("Coffee Purchase")));
+        .andExpect(jsonPath("$[0].category", Matchers.is(COFFEE_PURCHASE)));
   }
 }

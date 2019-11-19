@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.categorise.transactions.fractal.helper.Constants.UPDATED_CATEGORY;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -28,7 +29,7 @@ class UpdateCategoryControllerTest {
   void shouldUpdateCategory() throws Exception {
     doNothing()
         .when(service)
-        .updateTransaction("0ef942ea-d3ad-4f25-857b-4d4bb7f912d8", "Updated Category");
+        .updateTransaction("0ef942ea-d3ad-4f25-857b-4d4bb7f912d8", UPDATED_CATEGORY);
 
     String body =
         "{    \n"

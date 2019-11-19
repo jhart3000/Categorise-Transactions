@@ -14,7 +14,9 @@ import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileT
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(classes = BeanDefinitions.class)
-public class AddCategoryServiceTest {
+class AddCategoryServiceTest {
+
+  private static final String NEW_CATEGORY = "Supermarket Purchase";
 
   @Autowired private CategoriseTransactionsService service;
 
@@ -24,13 +26,13 @@ public class AddCategoryServiceTest {
     AddCategoryRequest request =
         AddCategoryRequest.builder()
             .descriptionSearch(stringList)
-            .newCategory("Supermarket Purchase")
+            .newCategory(NEW_CATEGORY)
             .build();
     Transaction[] serviceMock =
         mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
     service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
     service.addCategory(request);
     List<Transaction> response = service.returnCurrentTransactionList();
-    assertThat(response.get(2).getCategory()).isEqualTo("Supermarket Purchase");
+    assertThat(response.get(2).getCategory()).isEqualTo(NEW_CATEGORY);
   }
 }

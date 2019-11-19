@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.categorise.transactions.fractal.helper.Constants.SERVICE_MOCK;
+import static com.categorise.transactions.fractal.helper.Constants.UPDATED_CATEGORY;
 import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileToObject;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -20,22 +22,20 @@ class UpdateCategoryServiceTest {
 
   @Test
   void shouldUpdateTransaction() throws Exception {
-    Transaction[] serviceMock =
-        mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
+    Transaction[] serviceMock = mapJsonFileToObject(SERVICE_MOCK, Transaction[].class);
     service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
-    service.updateTransaction("0ef942ea-d3ad-4f25-857b-4d4bb7f912d8", "Updated Category");
+    service.updateTransaction("0ef942ea-d3ad-4f25-857b-4d4bb7f912d8", UPDATED_CATEGORY);
     List<Transaction> response = service.returnCurrentTransactionList();
     assertThat(response.size()).isEqualTo(5);
-    assertThat(response.get(0).getCategory()).isEqualTo("Updated Category");
+    assertThat(response.get(0).getCategory()).isEqualTo(UPDATED_CATEGORY);
   }
 
   @Test
   void shouldThrowNonExistentTransactionIdForUpdateTransaction() throws Exception {
-    Transaction[] serviceMock =
-        mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
+    Transaction[] serviceMock = mapJsonFileToObject(SERVICE_MOCK, Transaction[].class);
     service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
     Throwable errorResponse =
-        catchThrowable(() -> service.updateTransaction("Invalid Id", "Updated Category"));
+        catchThrowable(() -> service.updateTransaction("Invalid Id", UPDATED_CATEGORY));
     assertThat(errorResponse).hasMessage("Transaction Id Does Not Exist");
   }
 }

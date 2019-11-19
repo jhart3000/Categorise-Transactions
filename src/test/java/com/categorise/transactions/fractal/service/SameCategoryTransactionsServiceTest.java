@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.categorise.transactions.fractal.helper.Constants.COFFEE_PURCHASE;
+import static com.categorise.transactions.fractal.helper.Constants.SERVICE_MOCK;
 import static com.categorise.transactions.fractal.helper.JsonHelper.mapJsonFileToObject;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -20,10 +22,9 @@ class SameCategoryTransactionsServiceTest {
 
   @Test
   void shouldReturnTransactionWithTheSameCategory() throws Exception {
-    Transaction[] serviceMock =
-        mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
+    Transaction[] serviceMock = mapJsonFileToObject(SERVICE_MOCK, Transaction[].class);
     service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
-    List<Transaction> response = service.getTransactionsWithSameCategory("Coffee Purchase");
+    List<Transaction> response = service.getTransactionsWithSameCategory(COFFEE_PURCHASE);
     assertThat(response).isNotNull();
     assertThat(response.size()).isEqualTo(3);
   }
@@ -31,14 +32,13 @@ class SameCategoryTransactionsServiceTest {
   @Test
   void shouldThrowNullTransactionListForTransactionWithTheSameCategory() {
     Throwable errorResponse =
-        catchThrowable(() -> service.getTransactionsWithSameCategory("Coffee Purchase"));
+        catchThrowable(() -> service.getTransactionsWithSameCategory(COFFEE_PURCHASE));
     assertThat(errorResponse).hasMessage("Categorise Transactions Api Must Be Called First");
   }
 
   @Test
   void shouldThrowCategoryDoesNotExistForTransactionWithTheSameCategory() throws Exception {
-    Transaction[] serviceMock =
-        mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
+    Transaction[] serviceMock = mapJsonFileToObject(SERVICE_MOCK, Transaction[].class);
     service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
     Throwable errorResponse =
         catchThrowable(() -> service.getTransactionsWithSameCategory("Unknown Category"));
