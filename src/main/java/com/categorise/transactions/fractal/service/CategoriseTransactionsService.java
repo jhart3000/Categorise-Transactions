@@ -13,11 +13,11 @@ public class CategoriseTransactionsService {
 
   @Autowired private GetTransactionsClient client;
 
-  private List<Transaction> transactionList;
-
   public CategoriseTransactionsService(List<Transaction> transactionList) {
     this.transactionList = transactionList;
   }
+
+  private List<Transaction> transactionList;
 
   public List<Transaction> categoriseTransactions(CategoriseTransactionsRequest request)
       throws ApplicationException {
