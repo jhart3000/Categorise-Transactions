@@ -3,6 +3,7 @@ package com.categorise.transactions.fractal.controller;
 import com.categorise.transactions.fractal.exception.ApplicationException;
 import com.categorise.transactions.fractal.model.CategoriseTransactionsRequest;
 import com.categorise.transactions.fractal.model.Transaction;
+import com.categorise.transactions.fractal.model.UpdateCategoryRequest;
 import com.categorise.transactions.fractal.service.CategoriseTransactionsService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -86,20 +88,22 @@ public class CategoriseTransactionsController {
     return service.getTransactionsWithSameCategory(category);
   }
 
-  @PutMapping("/transaction/{transactionId}/category/{category}/updateTransactionCategory")
+  @PutMapping("/updateTransactionCategory")
   @ApiOperation(
       value = "Update the category of a specific transaction",
       notes =
-          "This api will select the transaction based on the id passed int he path param and replace its category field with the category string passed in the path param")
-  public void updateTransaction(
-      @ApiParam(value = "The unique identifier for each transaction", required = true)
-          @PathVariable("transactionId")
-          int transactionId,
+          "This api will select the transaction based on the id passed in the request body and replace its category field with the category string passed in the body")
+  public String updateTransaction(
       @ApiParam(
-              value = "The new category that you would like to add to the existing transaction",
+              value =
+                  "The request body for this api which contains two fields. The new category that you would like to add to the existing transaction and transaction id of the transaction you would like to update",
               required = true)
-          @PathVariable("category")
-          int category) {}
+          @RequestBody
+          UpdateCategoryRequest requestBody)
+      throws ApplicationException {
+    service.updateTransaction(requestBody.getTransactionId(), requestBody.getCategory());
+    return "Transaction Category Updated";
+  }
 
   @PutMapping("/categorySearch/{categorySearch}/categoryName/{categoryName}/addCategory")
   @ApiOperation(
@@ -108,13 +112,13 @@ public class CategoriseTransactionsController {
           "This api will check the description string of all transactions and if it contains the categorySearch string passed in the path param, it will update the category of that transaction to the categoryName passed in the path param")
   public void addCategory() {}
 
-  @GetMapping("getAllTransactions")
+  @GetMapping("/getAllTransactions")
   @ApiOperation(
       value = "Returns the current list of categorised transactions",
       notes =
           "This api returns the most up to date list of categorised transactions so the user can see the changes that have been made",
       response = Transaction[].class)
-  public List<Transaction> getTransactions() {
-    return null;
+  public List<Transaction> getTransactions() throws ApplicationException {
+    return service.returnCurrentTransactionList();
   }
 }
