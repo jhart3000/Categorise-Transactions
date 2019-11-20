@@ -19,7 +19,7 @@ public class AddCategoryController {
   @ApiOperation(
       value = "Add a new category to all transactions",
       notes =
-          "This api will check the description string of all transactions and if it contains the categorySearch string passed in the path param, it will update the category of that transaction to the categoryName passed in the path param",
+          "This api will check the description string of all transactions and if it contains any of the strings in the descriptionSearch list passed in the body, it will update the category of that transaction to the newCategory field in the request body",
       response = String.class)
   public String addCategory(
       @ApiParam(
