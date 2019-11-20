@@ -23,7 +23,7 @@ After this all subsequent apis can be used to manipulate the categories of all t
 Updating category of a transaction,
 Adding a new category,
 Getting the most up to date transaction list,
-Getting a list of transactions for a specific category,
+Getting a list of transactions for a specific category
 
 More details on the functionality of these apis can be found in the swagger documentation
 
