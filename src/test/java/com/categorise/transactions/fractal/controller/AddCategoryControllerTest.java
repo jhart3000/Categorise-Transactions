@@ -11,8 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.categorise.transactions.fractal.helper.Constants.ADD_CATEGORY;
+import static com.categorise.transactions.fractal.helper.Constants.ADD_CATEGORY_REQUEST;
 import static com.categorise.transactions.fractal.helper.Constants.INVALID_BODY;
+import static com.categorise.transactions.fractal.helper.JsonHelper.loadJsonFile;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -31,7 +32,8 @@ class AddCategoryControllerTest {
   @Test
   void shouldThrowInvalidRequestBody() throws Exception {
 
-    mvc.perform(put("/addCategory").contentType(APPLICATION_JSON).content(INVALID_BODY))
+    mvc.perform(
+            put("/addCategory").contentType(APPLICATION_JSON).content(loadJsonFile(INVALID_BODY)))
         .andExpect(status().isBadRequest())
         .andExpect(
             jsonPath(
@@ -45,7 +47,10 @@ class AddCategoryControllerTest {
 
     doNothing().when(service).addCategory(any(AddCategoryRequest.class));
 
-    mvc.perform(put("/addCategory").contentType(APPLICATION_JSON).content(ADD_CATEGORY))
+    mvc.perform(
+            put("/addCategory")
+                .contentType(APPLICATION_JSON)
+                .content(loadJsonFile(ADD_CATEGORY_REQUEST)))
         .andExpect(status().isOk());
   }
 }

@@ -32,7 +32,7 @@ class CurrentListControllerTest {
   void shouldReturnCurrentTransactionList() throws Exception {
     Transaction[] serviceMock =
         mapJsonFileToObject(
-            "get-transactions-same-category-service-mock.json", Transaction[].class);
+            "responses/get-transactions-same-category-service-mock.json", Transaction[].class);
     given(service.returnCurrentTransactionList()).willReturn(Arrays.asList(serviceMock));
     mvc.perform(get("/getAllTransactions"))
         .andExpect(status().isOk())

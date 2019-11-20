@@ -32,7 +32,7 @@ class SameCategoryTransactionsControllerTest {
   void shouldReturnListOfTransactionsWithSameCategory() throws Exception {
     Transaction[] serviceMock =
         mapJsonFileToObject(
-            "get-transactions-same-category-service-mock.json", Transaction[].class);
+            "responses/get-transactions-same-category-service-mock.json", Transaction[].class);
     given(service.getTransactionsWithSameCategory(AMAZON_PURCHASE))
         .willReturn(Arrays.asList(serviceMock));
     mvc.perform(get("/getTransactionsWithSameCategory").header("Category", AMAZON_PURCHASE))

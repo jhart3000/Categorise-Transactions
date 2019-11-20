@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.categorise.transactions.fractal.helper.Constants.*;
+import static com.categorise.transactions.fractal.helper.JsonHelper.loadJsonFile;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -34,7 +35,7 @@ class UpdateCategoryControllerTest {
     mvc.perform(
             put("/updateTransactionCategory")
                 .contentType(APPLICATION_JSON)
-                .content(UPDATE_CATEGORY_REQUEST))
+                .content(loadJsonFile(UPDATE_CATEGORY_REQUEST)))
         .andExpect(status().isOk());
   }
 
@@ -42,7 +43,9 @@ class UpdateCategoryControllerTest {
   void shouldThrowInvalidRequestBody() throws Exception {
 
     mvc.perform(
-            put("/updateTransactionCategory").contentType(APPLICATION_JSON).content(INVALID_BODY))
+            put("/updateTransactionCategory")
+                .contentType(APPLICATION_JSON)
+                .content(loadJsonFile(INVALID_BODY)))
         .andExpect(status().isBadRequest())
         .andExpect(
             jsonPath(

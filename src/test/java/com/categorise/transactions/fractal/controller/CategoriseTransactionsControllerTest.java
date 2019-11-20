@@ -32,7 +32,7 @@ class CategoriseTransactionsControllerTest {
   @Test
   void shouldReturnListOfTransactions() throws Exception {
     Transaction[] serviceMock =
-        mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
+        mapJsonFileToObject("responses/get-transactions-service-mock.json", Transaction[].class);
     given(service.categoriseTransactions(CLIENT_REQUEST)).willReturn(Arrays.asList(serviceMock));
     mvc.perform(
             get("/banking/2/accounts/fakeAcc62/categoriseTransactions")

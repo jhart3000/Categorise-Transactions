@@ -29,7 +29,7 @@ class AddCategoryServiceTest {
             .newCategory(NEW_CATEGORY)
             .build();
     Transaction[] serviceMock =
-        mapJsonFileToObject("get-transactions-service-mock.json", Transaction[].class);
+        mapJsonFileToObject("responses/get-transactions-service-mock.json", Transaction[].class);
     service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
     service.addCategory(request);
     List<Transaction> response = service.returnCurrentTransactionList();
