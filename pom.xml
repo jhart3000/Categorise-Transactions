@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.categorise.transactions</groupId>
-    <artifactId>fractal</artifactId>
+    <artifactId>categorise</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Fractal Assignment</name>
-    <description>Categorise transactions using fractals banking apis</description>
+    <name>Categorise transactions</name>
+    <description>Categorise transactions</description>
 
     <properties>
         <java.version>11</java.version>

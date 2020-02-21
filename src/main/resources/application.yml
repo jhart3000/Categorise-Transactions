@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /fractal
+    context-path: /banking
   port: 8081
 
 
