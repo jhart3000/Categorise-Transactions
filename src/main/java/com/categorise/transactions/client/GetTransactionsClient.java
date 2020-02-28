@@ -21,7 +21,6 @@ public class GetTransactionsClient {
   }
 
   private String getTransactionsResponse() {
-    String test = "gitTest";
     return "{\n"
         + "  \"results\": [\n"
         + "    {\n"
