@@ -41,7 +41,7 @@
       "memoryReservation": 512,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "httpd:2.4",
+      "image": "categorise-transactions:latest",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -68,7 +68,7 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:eu-west-2:466773249146:task-definition/first-run-task-definition:2",
+  "taskDefinitionArn": "arn:aws:ecs:eu-west-2:466773249146:task-definition/first-run-task-definition:4",
   "family": "first-run-task-definition",
   "requiresAttributes": [
     {
@@ -114,7 +114,7 @@
   ],
   "networkMode": "awsvpc",
   "cpu": "256",
-  "revision": 2,
+  "revision": 4,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
