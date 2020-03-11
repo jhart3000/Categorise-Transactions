@@ -220,11 +220,5 @@
         "value": ""
       }
     ]
-  },
-  "inferenceAccelerators": [
-    {
-      "deviceName": "",
-      "deviceType": ""
-    }
-  ]
+  }
 }
