@@ -33,7 +33,38 @@
       "environment": [],
       "mountPoints": [],
       "volumesFrom": [],
-      "linuxParameters": null,
+      "linuxParameters": {
+        "capabilities": {
+          "add": [
+            ""
+          ],
+          "drop": [
+            ""
+          ]
+        },
+        "devices": [
+          {
+            "hostPath": "",
+            "containerPath": "",
+            "permissions": [
+              "read"
+            ]
+          }
+        ],
+        "initProcessEnabled": true,
+        "sharedMemorySize": 0,
+        "tmpfs": [
+          {
+            "containerPath": "",
+            "size": 0,
+            "mountOptions": [
+              ""
+            ]
+          }
+        ],
+        "maxSwap": 0,
+        "swappiness": 0
+      },
       "secrets": [],
       "dependsOn": [],
       "startTimeout": 0,
@@ -56,7 +87,9 @@
       ],
       "interactive": true,
       "pseudoTerminal": true,
-      "dockerLabels": null,
+      "dockerLabels": {
+        "KeyName": ""
+      },
       "ulimits": [
         {
           "name": "rttime",
@@ -64,11 +97,35 @@
           "hardLimit": 0
         }
       ],
-      "logConfiguration": null,
-      "healthCheck": null,
+      "logConfiguration": {
+        "logDriver": "gelf",
+        "options": {
+          "KeyName": ""
+        },
+        "secretOptions": [
+          {
+            "name": "",
+            "valueFrom": ""
+          }
+        ]
+      },
+      "healthCheck": {
+        "command": [
+          ""
+        ],
+        "interval": 0,
+        "timeout": 0,
+        "retries": 0,
+        "startPeriod": 0
+      },
       "systemControls": [],
       "resourceRequirements": [],
-      "firelensConfiguration": null
+      "firelensConfiguration": {
+        "type": "fluentbit",
+        "options": {
+          "KeyName": ""
+        }
+      }
     }
   ],
   "volumes": [],
