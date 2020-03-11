@@ -1,12 +1,13 @@
 {
   "family": "categoriseTransactionsTask",
+  "executionRoleArn": "arn:aws:iam::466773249146:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
       "name": "categorise-transactions",
       "image": "466773249146.dkr.ecr.eu-west-2.amazonaws.com/categorise-transactions:latest",
-      "cpu": 256,
-      "memory": 512,
+      "cpu": 0,
+      "memory": 0,
       "portMappings": [
         {
           "containerPort": 8080,
@@ -14,7 +15,19 @@
           "protocol": "tcp"
         }
       ],
-      "essential": true
+      "essential": true,
+      "requiresCompatibilities": [
+        "EC2"
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/categoriseTransactionsTask",
+          "awslogs-region": "eu-west-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
     }
   ]
 }
