@@ -6,8 +6,8 @@
     {
       "name": "categorise-transactions",
       "image": "466773249146.dkr.ecr.eu-west-2.amazonaws.com/categorise-transactions:latest",
-      "cpu": 0,
-      "memory": 0,
+      "cpu": 256,
+      "memory": 512,
       "portMappings": [
         {
           "containerPort": 8080,
