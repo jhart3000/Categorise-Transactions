@@ -1,21 +1,12 @@
 {
   "family": "categoriseTransactionsTask",
-  "taskRoleArn": "",
-  "executionRoleArn": "arn:aws:iam::466773249146:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
       "name": "categorise-transactions",
       "image": "466773249146.dkr.ecr.eu-west-2.amazonaws.com/categorise-transactions:latest",
-      "repositoryCredentials": {
-        "credentialsParameter": ""
-      },
       "cpu": 256,
       "memory": 512,
-      "memoryReservation": 0,
-      "links": [
-        ""
-      ],
       "portMappings": [
         {
           "containerPort": 8080,
@@ -23,129 +14,7 @@
           "protocol": "tcp"
         }
       ],
-      "essential": true,
-      "entryPoint": [
-        ""
-      ],
-      "command": [
-        ""
-      ],
-      "environment": [],
-      "mountPoints": [],
-      "volumesFrom": [],
-      "linuxParameters": {
-        "capabilities": {
-          "add": [
-            ""
-          ],
-          "drop": [
-            ""
-          ]
-        },
-        "devices": [
-          {
-            "hostPath": "",
-            "containerPath": "",
-            "permissions": [
-              "read"
-            ]
-          }
-        ],
-        "initProcessEnabled": true,
-        "sharedMemorySize": 0,
-        "tmpfs": [
-          {
-            "containerPath": "",
-            "size": 0,
-            "mountOptions": [
-              ""
-            ]
-          }
-        ],
-        "maxSwap": 0,
-        "swappiness": 0
-      },
-      "secrets": [],
-      "dependsOn": [],
-      "startTimeout": 0,
-      "stopTimeout": 0,
-      "hostname": "",
-      "user": "",
-      "workingDirectory": "",
-      "disableNetworking": true,
-      "privileged": true,
-      "readonlyRootFilesystem": true,
-      "dnsServers": [
-        ""
-      ],
-      "dnsSearchDomains": [
-        ""
-      ],
-      "extraHosts": [],
-      "dockerSecurityOptions": [
-        ""
-      ],
-      "interactive": true,
-      "pseudoTerminal": true,
-      "dockerLabels": {
-        "KeyName": ""
-      },
-      "ulimits": [
-        {
-          "name": "rttime",
-          "softLimit": 0,
-          "hardLimit": 0
-        }
-      ],
-      "logConfiguration": {
-        "logDriver": "gelf",
-        "options": {
-          "KeyName": ""
-        },
-        "secretOptions": [
-          {
-            "name": "",
-            "valueFrom": ""
-          }
-        ]
-      },
-      "healthCheck": {
-        "command": [
-          ""
-        ],
-        "interval": 0,
-        "timeout": 0,
-        "retries": 0,
-        "startPeriod": 0
-      },
-      "systemControls": [],
-      "resourceRequirements": [],
-      "firelensConfiguration": {
-        "type": "fluentbit",
-        "options": {
-          "KeyName": ""
-        }
-      }
+      "essential": true
     }
-  ],
-  "volumes": [],
-  "placementConstraints": [],
-  "requiresCompatibilities": [
-    "EC2"
-  ],
-  "cpu": "256",
-  "memory": "512",
-  "tags": [],
-  "pidMode": "task",
-  "ipcMode": "none",
-  "proxyConfiguration": {
-    "type": "APPMESH",
-    "containerName": "",
-    "properties": [
-      {
-        "name": "",
-        "value": ""
-      }
-    ]
-  }
+  ]
 }
