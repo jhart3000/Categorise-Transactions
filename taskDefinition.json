@@ -16,12 +16,9 @@
         }
       ],
       "essential": true,
-      "requiresCompatibilities": [
-        "EC2"
-      ],
       "logConfiguration": {
         "logDriver": "awslogs",
-        "secretOptions": null,
+        "secretOptions": [],
         "options": {
           "awslogs-group": "/ecs/categoriseTransactionsTask",
           "awslogs-region": "eu-west-2",
