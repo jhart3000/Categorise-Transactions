@@ -1,6 +1,6 @@
 {
   "family": "categoriseTransactionsTask",
-  "taskRoleArn": null,
+  "taskRoleArn": "",
   "executionRoleArn": "arn:aws:iam::466773249146:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "containerDefinitions": [
@@ -12,8 +12,10 @@
       },
       "cpu": 256,
       "memory": 512,
-      "memoryReservation": null,
-      "links": null,
+      "memoryReservation": 0,
+      "links": [
+        ""
+      ],
       "portMappings": [
         {
           "containerPort": 8080,
@@ -22,45 +24,180 @@
         }
       ],
       "essential": true,
-      "entryPoint": null,
-      "command": null,
-      "environment": [],
-      "mountPoints": [],
-      "volumesFrom": [],
-      "linuxParameters": null,
-      "secrets": null,
-      "dependsOn": null,
-      "startTimeout": null,
-      "stopTimeout": null,
-      "hostname": null,
-      "user": null,
-      "workingDirectory": null,
-      "disableNetworking": null,
-      "privileged": null,
-      "readonlyRootFilesystem": null,
-      "dnsServers": null,
-      "dnsSearchDomains": null,
-      "extraHosts": null,
-      "dockerSecurityOptions": null,
-      "interactive": null,
-      "pseudoTerminal": null,
-      "dockerLabels": null,
-      "ulimits": null,
+      "entryPoint": [
+        ""
+      ],
+      "command": [
+        ""
+      ],
+      "environment": [
+        {
+          "name": "",
+          "value": ""
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "",
+          "containerPath": "",
+          "readOnly": true
+        }
+      ],
+      "volumesFrom": [
+        {
+          "sourceContainer": "",
+          "readOnly": true
+        }
+      ],
+      "linuxParameters": {
+        "capabilities": {
+          "add": [
+            ""
+          ],
+          "drop": [
+            ""
+          ]
+        },
+        "devices": [
+          {
+            "hostPath": "",
+            "containerPath": "",
+            "permissions": [
+              "read"
+            ]
+          }
+        ],
+        "initProcessEnabled": true,
+        "sharedMemorySize": 0,
+        "tmpfs": [
+          {
+            "containerPath": "",
+            "size": 0,
+            "mountOptions": [
+              ""
+            ]
+          }
+        ],
+        "maxSwap": 0,
+        "swappiness": 0
+      },
+      "secrets": [
+        {
+          "name": "",
+          "valueFrom": ""
+        }
+      ],
+      "dependsOn": [
+        {
+          "containerName": "",
+          "condition": "START"
+        }
+      ],
+      "startTimeout": 0,
+      "stopTimeout": 0,
+      "hostname": "",
+      "user": "",
+      "workingDirectory": "",
+      "disableNetworking": true,
+      "privileged": true,
+      "readonlyRootFilesystem": true,
+      "dnsServers": [
+        ""
+      ],
+      "dnsSearchDomains": [
+        ""
+      ],
+      "extraHosts": [
+        {
+          "hostname": "",
+          "ipAddress": ""
+        }
+      ],
+      "dockerSecurityOptions": [
+        ""
+      ],
+      "interactive": true,
+      "pseudoTerminal": true,
+      "dockerLabels": {
+        "KeyName": ""
+      },
+      "ulimits": [
+        {
+          "name": "rttime",
+          "softLimit": 0,
+          "hardLimit": 0
+        }
+      ],
       "logConfiguration": {
-        "logDriver": "awslogs",
+        "logDriver": "gelf",
         "options": {
           "KeyName": ""
         },
-        "secretOptions": null
+        "secretOptions": [
+          {
+            "name": "",
+            "valueFrom": ""
+          }
+        ]
       },
-      "healthCheck": null,
-      "systemControls": null,
-      "resourceRequirements": null,
-      "firelensConfiguration": null
+      "healthCheck": {
+        "command": [
+          ""
+        ],
+        "interval": 0,
+        "timeout": 0,
+        "retries": 0,
+        "startPeriod": 0
+      },
+      "systemControls": [
+        {
+          "namespace": "",
+          "value": ""
+        }
+      ],
+      "resourceRequirements": [
+        {
+          "value": "",
+          "type": "InferenceAccelerator"
+        }
+      ],
+      "firelensConfiguration": {
+        "type": "fluentbit",
+        "options": {
+          "KeyName": ""
+        }
+      }
     }
   ],
-  "volumes": [],
-  "placementConstraints": [],
+  "volumes": [
+    {
+      "name": "",
+      "host": {
+        "sourcePath": ""
+      },
+      "dockerVolumeConfiguration": {
+        "scope": "shared",
+        "autoprovision": true,
+        "driver": "",
+        "driverOpts": {
+          "KeyName": ""
+        },
+        "labels": {
+          "KeyName": ""
+        }
+      },
+      "efsVolumeConfiguration": {
+        "fileSystemId": "",
+        "rootDirectory": ""
+      }
+    }
+  ],
+  "placementConstraints": [
+    {
+      "type": "memberOf",
+      "expression": ""
+    }
+  ],
   "requiresCompatibilities": [
     "EC2"
   ],
@@ -72,8 +209,22 @@
       "value": ""
     }
   ],
-  "pidMode": null,
-  "ipcMode": null,
-  "proxyConfiguration": null,
-  "inferenceAccelerators": null
+  "pidMode": "task",
+  "ipcMode": "none",
+  "proxyConfiguration": {
+    "type": "APPMESH",
+    "containerName": "",
+    "properties": [
+      {
+        "name": "",
+        "value": ""
+      }
+    ]
+  },
+  "inferenceAccelerators": [
+    {
+      "deviceName": "",
+      "deviceType": ""
+    }
+  ]
 }
