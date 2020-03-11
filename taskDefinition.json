@@ -169,29 +169,7 @@
       }
     }
   ],
-  "volumes": [
-    {
-      "name": "",
-      "host": {
-        "sourcePath": ""
-      },
-      "dockerVolumeConfiguration": {
-        "scope": "shared",
-        "autoprovision": true,
-        "driver": "",
-        "driverOpts": {
-          "KeyName": ""
-        },
-        "labels": {
-          "KeyName": ""
-        }
-      },
-      "efsVolumeConfiguration": {
-        "fileSystemId": "",
-        "rootDirectory": ""
-      }
-    }
-  ],
+  "volumes": [],
   "placementConstraints": [
     {
       "type": "memberOf",
