@@ -10,8 +10,9 @@ http://localhost:8080/banking/swagger-ui.html#/
 The architecture consists of one controller per api that all talk to the same service file where the business logic is carried out.
 A common list object is created in the service layer when the Categorise Transactions Controller api is called and then all subsequent api calls modify this initial object. 
 This means that the Categorise Transactions Controller api must be called before any other api.
+In future this common list object will be cached using DynamoDB and retrieved and stored each time an api is called and the service layer will be split so there is one for each API.
 
-The Categorise Transactions Controller api will retrieve a hard coded list of transactions.In future this data will be retrieved from another microservice.
+The Categorise Transactions Controller api will retrieve a hard coded list of transactions. In future this data will be retrieved from another microservice.
 This api wil automatically categorise transactions under 2 categories (Coffee Purchases and Amazon Purchases).
 
 After this all subsequent apis can be used to manipulate the categories of all transactions. This includes:
