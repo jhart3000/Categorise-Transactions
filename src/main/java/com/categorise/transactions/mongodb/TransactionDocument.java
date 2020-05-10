@@ -1,13 +1,16 @@
-package com.categorise.transactions.model;
+package com.categorise.transactions.mongodb;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-public class Transaction {
+@Document
+public class TransactionDocument {
+  @Id private String transactionId;
   private int bankId;
   private String accountId;
   private int companyId;
-  private String transactionId;
   private String bookingDate;
   private String description;
   private String amount;

@@ -1,11 +1,12 @@
 package com.categorise.transactions.service;
 
-import com.categorise.transactions.configuration.BeanDefinitions;
 import com.categorise.transactions.helper.Constants;
-import com.categorise.transactions.model.Transaction;
+import com.categorise.transactions.mongodb.TransactionDocument;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,32 +14,35 @@ import java.util.List;
 import static com.categorise.transactions.helper.JsonHelper.mapJsonFileToObject;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.BDDMockito.given;
 
-@SpringBootTest(classes = BeanDefinitions.class)
+@ExtendWith(MockitoExtension.class)
 class SameCategoryTransactionsServiceTest {
 
-  @Autowired private CategoriseTransactionsService service;
+  private SameCategoryTransactionService service;
+  @Mock private MongoDBInteractionsService mongoDBInterationsService;
+
+  @BeforeEach
+  void setUp() {
+    service = new SameCategoryTransactionService(mongoDBInterationsService);
+  }
 
   @Test
   void shouldReturnTransactionWithTheSameCategory() throws Exception {
-    Transaction[] serviceMock = mapJsonFileToObject(Constants.SERVICE_MOCK, Transaction[].class);
-    service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
-    List<Transaction> response = service.getTransactionsWithSameCategory(Constants.COFFEE_PURCHASE);
+    TransactionDocument[] serviceMock =
+        mapJsonFileToObject(Constants.SERVICE_MOCK, TransactionDocument[].class);
+    given(mongoDBInterationsService.getAllFromMongoDB()).willReturn(Arrays.asList(serviceMock));
+    List<TransactionDocument> response =
+        service.getTransactionsWithSameCategory(Constants.COFFEE_PURCHASE);
     assertThat(response).isNotNull();
     assertThat(response.size()).isEqualTo(3);
   }
 
   @Test
-  void shouldThrowNullTransactionListForTransactionWithTheSameCategory() {
-    Throwable errorResponse =
-        catchThrowable(() -> service.getTransactionsWithSameCategory(Constants.COFFEE_PURCHASE));
-    assertThat(errorResponse).hasMessage("Categorise Transactions Api Must Be Called First");
-  }
-
-  @Test
   void shouldThrowCategoryDoesNotExistForTransactionWithTheSameCategory() throws Exception {
-    Transaction[] serviceMock = mapJsonFileToObject(Constants.SERVICE_MOCK, Transaction[].class);
-    service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
+    TransactionDocument[] serviceMock =
+        mapJsonFileToObject(Constants.SERVICE_MOCK, TransactionDocument[].class);
+    given(mongoDBInterationsService.getAllFromMongoDB()).willReturn(Arrays.asList(serviceMock));
     Throwable errorResponse =
         catchThrowable(() -> service.getTransactionsWithSameCategory("Unknown Category"));
     assertThat(errorResponse).hasMessage("Category Does Not Exist");

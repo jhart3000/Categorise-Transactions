@@ -9,4 +9,6 @@ public class Constants {
   public static final String UPDATE_CATEGORY_REQUEST = "requests/update-category-request.json";
   public static final String ADD_CATEGORY_REQUEST = "requests/add-category-request.json";
   public static final String INVALID_BODY = "requests/invalid-request-body.json";
+  public static final String ADD_CATEGORY_MESSAGE = "Category Successfully Added";
+  public static final String UPDATE_CATEGORY_MESSAGE = "Transaction Category Updated";
 }

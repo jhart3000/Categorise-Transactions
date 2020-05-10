@@ -1,39 +1,49 @@
 package com.categorise.transactions.service;
 
-import com.categorise.transactions.configuration.BeanDefinitions;
-import com.categorise.transactions.model.Transaction;
+import com.categorise.transactions.model.MessageResponse;
+import com.categorise.transactions.mongodb.TransactionDocument;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static com.categorise.transactions.helper.Constants.SERVICE_MOCK;
-import static com.categorise.transactions.helper.Constants.UPDATED_CATEGORY;
+import static com.categorise.transactions.helper.Constants.*;
 import static com.categorise.transactions.helper.JsonHelper.mapJsonFileToObject;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.BDDMockito.given;
 
-@SpringBootTest(classes = BeanDefinitions.class)
+@ExtendWith(MockitoExtension.class)
 class UpdateCategoryServiceTest {
 
-  @Autowired private CategoriseTransactionsService service;
+  private UpdateCategoryService service;
+  @Mock private MongoDBInteractionsService mongoDBInterationsService;
+
+  @BeforeEach
+  void setUp() {
+    service = new UpdateCategoryService(mongoDBInterationsService);
+  }
 
   @Test
   void shouldUpdateTransaction() throws Exception {
-    Transaction[] serviceMock = mapJsonFileToObject(SERVICE_MOCK, Transaction[].class);
-    service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
-    service.updateTransaction("0ef942ea-d3ad-4f25-857b-4d4bb7f912d8", UPDATED_CATEGORY);
-    List<Transaction> response = service.returnCurrentTransactionList();
-    assertThat(response.size()).isEqualTo(5);
-    assertThat(response.get(0).getCategory()).isEqualTo(UPDATED_CATEGORY);
+    TransactionDocument[] serviceMock =
+        mapJsonFileToObject(SERVICE_MOCK, TransactionDocument[].class);
+    given(mongoDBInterationsService.getAllFromMongoDB()).willReturn(Arrays.asList(serviceMock));
+    MessageResponse response =
+        service.updateTransaction("0ef942ea-d3ad-4f25-857b-4d4bb7f912d8", UPDATED_CATEGORY);
+    Assertions.assertThat(response).isNotNull();
+    Assertions.assertThat(response.getMessage()).isEqualTo(UPDATE_CATEGORY_MESSAGE);
   }
 
   @Test
   void shouldThrowNonExistentTransactionIdForUpdateTransaction() throws Exception {
-    Transaction[] serviceMock = mapJsonFileToObject(SERVICE_MOCK, Transaction[].class);
-    service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
+    TransactionDocument[] serviceMock =
+        mapJsonFileToObject(SERVICE_MOCK, TransactionDocument[].class);
+    given(mongoDBInterationsService.getAllFromMongoDB()).willReturn(Arrays.asList(serviceMock));
     Throwable errorResponse =
         catchThrowable(() -> service.updateTransaction("Invalid Id", UPDATED_CATEGORY));
     assertThat(errorResponse).hasMessage("Transaction Id Does Not Exist");

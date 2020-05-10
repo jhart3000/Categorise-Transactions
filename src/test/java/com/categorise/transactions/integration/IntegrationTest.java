@@ -1,10 +1,13 @@
 package com.categorise.transactions.integration;
 
-import com.categorise.transactions.configuration.BeanDefinitions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.categorise.transactions.helper.Constants.*;
@@ -15,8 +18,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-@Import(BeanDefinitions.class)
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+@SpringBootTest
+@Import(EmbeddedMongoAutoConfiguration.class)
 class IntegrationTest {
 
   private static final String UPDATE_CATEGORY_REQUEST_2 = "requests/update-category-request-2.json";
@@ -25,7 +30,7 @@ class IntegrationTest {
 
   @Test
   void shouldReturnListOfTransactionsAfterUpdatingAndAddingCategory() throws Exception {
-    mvc.perform(get("/categoriseTransactions")).andExpect(status().isOk());
+    mvc.perform(get("/categoriseTransactions/cache/false")).andExpect(status().isOk());
 
     mvc.perform(get("/getTransactionsWithSameCategory").header("Category", AMAZON_PURCHASE))
         .andExpect(status().isOk())

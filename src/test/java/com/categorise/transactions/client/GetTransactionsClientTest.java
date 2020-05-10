@@ -1,7 +1,6 @@
 package com.categorise.transactions.client;
 
-import com.categorise.transactions.configuration.BeanDefinitions;
-import com.categorise.transactions.model.Transaction;
+import com.categorise.transactions.mongodb.TransactionDocument;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,14 +9,14 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SpringBootTest(classes = BeanDefinitions.class)
+@SpringBootTest
 class GetTransactionsClientTest {
 
   @Autowired private GetTransactionsClient client;
 
   @Test
   void shouldReturnSuccessfulClientResponse() throws Exception {
-    List<Transaction> response = client.getTransactionsHardCoded();
+    List<TransactionDocument> response = client.getTransactionsHardCoded();
 
     assertThat(response).isNotNull();
     assertThat(response.get(0).getDescription()).isEqualTo("Starbucks Victoria Stn");

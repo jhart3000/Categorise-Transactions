@@ -1,14 +1,15 @@
 package com.categorise.transactions.controller;
 
-import com.categorise.transactions.configuration.BeanDefinitions;
-import com.categorise.transactions.model.Transaction;
+import com.categorise.transactions.mongodb.TransactionDocument;
 import com.categorise.transactions.service.CategoriseTransactionsService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -20,8 +21,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-@Import(BeanDefinitions.class)
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+@SpringBootTest
 class CategoriseTransactionsControllerTest {
 
   @Autowired private MockMvc mvc;
@@ -30,10 +32,11 @@ class CategoriseTransactionsControllerTest {
 
   @Test
   void shouldReturnListOfTransactions() throws Exception {
-    Transaction[] serviceMock =
-        mapJsonFileToObject("responses/get-transactions-service-mock.json", Transaction[].class);
-    given(service.categoriseTransactions()).willReturn(Arrays.asList(serviceMock));
-    mvc.perform(get("/categoriseTransactions"))
+    TransactionDocument[] serviceMock =
+        mapJsonFileToObject(
+            "responses/get-transactions-service-mock.json", TransactionDocument[].class);
+    given(service.categoriseTransactions(false)).willReturn(Arrays.asList(serviceMock));
+    mvc.perform(get("/categoriseTransactions/cache/false"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].category", Matchers.is(COFFEE_PURCHASE)));
   }

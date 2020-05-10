@@ -1,14 +1,15 @@
 package com.categorise.transactions.controller;
 
-import com.categorise.transactions.configuration.BeanDefinitions;
-import com.categorise.transactions.model.Transaction;
-import com.categorise.transactions.service.CategoriseTransactionsService;
+import com.categorise.transactions.mongodb.TransactionDocument;
+import com.categorise.transactions.service.SameCategoryTransactionService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -20,19 +21,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-@Import(BeanDefinitions.class)
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+@SpringBootTest
 class SameCategoryTransactionsControllerTest {
 
   @Autowired private MockMvc mvc;
 
-  @MockBean private CategoriseTransactionsService service;
+  @MockBean private SameCategoryTransactionService service;
 
   @Test
   void shouldReturnListOfTransactionsWithSameCategory() throws Exception {
-    Transaction[] serviceMock =
+    TransactionDocument[] serviceMock =
         mapJsonFileToObject(
-            "responses/get-transactions-same-category-service-mock.json", Transaction[].class);
+            "responses/get-transactions-same-category-service-mock.json",
+            TransactionDocument[].class);
     given(service.getTransactionsWithSameCategory(AMAZON_PURCHASE))
         .willReturn(Arrays.asList(serviceMock));
     mvc.perform(get("/getTransactionsWithSameCategory").header("Category", AMAZON_PURCHASE))

@@ -1,24 +1,36 @@
 package com.categorise.transactions.service;
 
-import com.categorise.transactions.configuration.BeanDefinitions;
 import com.categorise.transactions.model.AddCategoryRequest;
-import com.categorise.transactions.model.Transaction;
+import com.categorise.transactions.model.MessageResponse;
+import com.categorise.transactions.mongodb.TransactionDocument;
+import com.categorise.transactions.mongodb.TransactionRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.List;
 
+import static com.categorise.transactions.helper.Constants.ADD_CATEGORY_MESSAGE;
 import static com.categorise.transactions.helper.JsonHelper.mapJsonFileToObject;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
-@SpringBootTest(classes = BeanDefinitions.class)
+@ExtendWith(MockitoExtension.class)
 class AddCategoryServiceTest {
 
   private static final String NEW_CATEGORY = "Supermarket Purchase";
 
-  @Autowired private CategoriseTransactionsService service;
+  private AddCategoryService service;
+
+  @Mock private TransactionRepository transactionRepository;
+  @Mock private MongoDBInteractionsService mongoDBInterationsService;
+
+  @BeforeEach
+  void setUp() {
+    service = new AddCategoryService(transactionRepository, mongoDBInterationsService);
+  }
 
   @Test
   void shouldUpdateTransaction() throws Exception {
@@ -28,11 +40,12 @@ class AddCategoryServiceTest {
             .descriptionSearch(stringList)
             .newCategory(NEW_CATEGORY)
             .build();
-    Transaction[] serviceMock =
-        mapJsonFileToObject("responses/get-transactions-service-mock.json", Transaction[].class);
-    service = new CategoriseTransactionsService(Arrays.asList(serviceMock));
-    service.addCategory(request);
-    List<Transaction> response = service.returnCurrentTransactionList();
-    assertThat(response.get(2).getCategory()).isEqualTo(NEW_CATEGORY);
+    TransactionDocument[] serviceMock =
+        mapJsonFileToObject(
+            "responses/get-transactions-service-mock.json", TransactionDocument[].class);
+    given(mongoDBInterationsService.getAllFromMongoDB()).willReturn(Arrays.asList(serviceMock));
+    MessageResponse response = service.addCategory(request);
+    assertThat(response).isNotNull();
+    assertThat(response.getMessage()).isEqualTo(ADD_CATEGORY_MESSAGE);
   }
 }
