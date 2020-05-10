@@ -20,9 +20,9 @@ public class CategoriseTransactionsController {
   @ApiOperation(
       value = "Categorise transactions based on coffee and amazon purchases",
       notes =
-          "This api will call the get transactions api using the bank id and account id in the path param and the same headers passed into this api. "
+          "This api will get a hardcoded list of transactions and save them to MongoDB. If the useCache is set to true it will retrieve existing data from MongoDB. "
               + "It will then categorise the transactions based on the transaction description into two categories: coffee purchases and amazon purchases. "
-              + "The rest will be labelled as not categorised. Every time this api is called all changes to category will be reset to values returned when this api was first called",
+              + "The rest will be labelled as not categorised. Every time this api is called the new list is updated in MongoDB.",
       response = TransactionDocument[].class)
   public List<TransactionDocument> categoriseTransactions(
       @ApiParam(
