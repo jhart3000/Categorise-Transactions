@@ -3,7 +3,6 @@ package com.categorise.transactions.service;
 import com.categorise.transactions.model.AddCategoryRequest;
 import com.categorise.transactions.model.MessageResponse;
 import com.categorise.transactions.mongodb.TransactionDocument;
-import com.categorise.transactions.mongodb.TransactionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,12 +23,11 @@ class AddCategoryServiceTest {
 
   private AddCategoryService service;
 
-  @Mock private TransactionRepository transactionRepository;
   @Mock private MongoDBInteractionsService mongoDBInterationsService;
 
   @BeforeEach
   void setUp() {
-    service = new AddCategoryService(transactionRepository, mongoDBInterationsService);
+    service = new AddCategoryService(mongoDBInterationsService);
   }
 
   @Test

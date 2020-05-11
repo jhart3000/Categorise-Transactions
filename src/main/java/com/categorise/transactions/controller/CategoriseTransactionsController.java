@@ -1,5 +1,6 @@
 package com.categorise.transactions.controller;
 
+import com.categorise.transactions.exception.ApplicationException;
 import com.categorise.transactions.mongodb.TransactionDocument;
 import com.categorise.transactions.service.CategoriseTransactionsService;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +32,7 @@ public class CategoriseTransactionsController {
               required = true)
           @PathVariable("useCache")
           boolean useCache)
-      throws Exception {
+      throws ApplicationException {
     return service.categoriseTransactions(useCache);
   }
 }

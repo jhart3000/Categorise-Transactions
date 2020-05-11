@@ -4,20 +4,15 @@ import com.categorise.transactions.exception.ApplicationException;
 import com.categorise.transactions.model.AddCategoryRequest;
 import com.categorise.transactions.model.MessageResponse;
 import com.categorise.transactions.mongodb.TransactionDocument;
-import com.categorise.transactions.mongodb.TransactionRepository;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class AddCategoryService {
 
-  private TransactionRepository transactionRepository;
   private MongoDBInteractionsService mongoDBInterationsService;
 
-  public AddCategoryService(
-      TransactionRepository transactionRepository,
-      MongoDBInteractionsService mongoDBInterationsService) {
-    this.transactionRepository = transactionRepository;
+  public AddCategoryService(MongoDBInteractionsService mongoDBInterationsService) {
     this.mongoDBInterationsService = mongoDBInterationsService;
   }
 

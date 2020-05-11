@@ -17,6 +17,13 @@
 
     <properties>
         <java.version>11</java.version>
+        <sonar.coverage.exclusions>
+            **/configuration/**,
+            **/CategoriseTransactionApplication.java,
+            **/model/**,
+            **/exception/**,
+            **/mongodb/**/TransactionDocument.java
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
@@ -36,6 +43,11 @@
             <groupId>de.flapdoodle.embed</groupId>
             <artifactId>de.flapdoodle.embed.mongo</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.7.0.1746</version>
         </dependency>
 
         <dependency>
@@ -92,6 +104,26 @@
                     <execution>
                         <goals>
                             <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <executions>
+                    <execution>
+                        <id>agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
