@@ -1,6 +1,7 @@
 Categorise-Transactions
 
 This is a spring boot app that requires maven and java 11. It also requires the lombok plugin to be installed with your chosen IDE and MongoDB to be running on the default port: 27017 and host: localhost
+
 This app is also set up to use SonarQube for code quality reports. The coverage exclusions are listed in the pom.
 
 Running the CategoriseTransactionApplication java file will deploy the app to the local server on port 8080.
